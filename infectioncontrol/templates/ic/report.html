@@ -1,0 +1,43 @@
+<div class="container content-offset">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Report an incident to Infection Control</div>
+
+        <div class="panel-body">
+        <form class="form-horizontal">
+
+          <div class="form-group">
+            <label class="control-label col-sm-2">Reported Infection</label>
+            <div class="col-sm-8">
+	      <input class="form-control" type="text"
+                     ng-model="editing.infection"
+                     ng-options="c for c in condition_list"
+                     bs-typeahead>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2">Suspected?</label>
+            <div class="col-sm-8">
+	      <input class="form-control" type="checkbox" ng-model="editing.suspected">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2">Hospital number</label>
+            <div class="col-sm-8">
+	      <input class="form-control" type="text" ng-model="editing.hospital_number">
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg" ng-click="report()">Report</button>
+
+        </form>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+{% extends 'opal.html' %}
+
+{% load opalplugins %}
+
+{% block ngapp %}opal.ic{% endblock %}
+{% block angularapp %}
+{% plugin_javascripts 'opal.ic' %}
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-default navbar-fixed-top screen-only" role="navigation" id="main-navbar">
+  <div class="navbar-header">
+    <span class="navbar-brand">
+      <a href="/">{{OPAL_BRAND_NAME}}</a>
+      {{ VERSION_NUMBER }}
+      {% now "DATE_FORMAT" %}
+    </span>
+  </div>
+
+  <ul class="nav navbar-nav pull-right">
+    {% if request.user.is_staff %}
+    <li><a href="/admin">Admin</a></li>
+    {% endif %}
+    <li><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></li>
+  </ul>
+
+</div>
+{% endblock %}
