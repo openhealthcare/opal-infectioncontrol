@@ -9,29 +9,37 @@ angular.module('opal.ic.controllers').controller(
         }
 
         $scope.report = function(){
-	    $http.get('/patient/?hospital_number=' + $scope.editing.hospital_number)
-                .success(function(response) {
-                    console.log(response)
-                    if(response == []){
-                        // Create new patient
-                    }else{
-                        // Check for active
-                        if(response[0].active_episode_id){
-                            // We have an active episode
-                            // At this stage it's just "Add the infectioncontrol tag."
-                            var episode_data = response[0].episodes[response[0].active_episode_id];
-                            episode = new Episode(episode_data, schema);
-                            episode.tagging.infectioncontrol = true;
-                            episode.tagging.save().then(
-                                alert('savedit- ta!')
-                            );
-                        }else{
-                            // Create new episode
-                        }
-                    }
 
-		});
+            Episode.findByHospitalNumber(
+                $scope.editing.hospital_number,
+                {
+                    newPatient: $scope.new_patient,
+                    newForPatient: $scope.new_for_patient,
+                    error: function(){ alert('Error Reporting:()')}
+                }
+            )
+        };
+
+        $scope.new_patient = function(result){
+
+        };
+
+        $scope.new_for_patient = function(result){
+            // Check for active
+            if(result.active_episode_id){
+                // We have an active episode
+                // At this stage it's just "Add the infectioncontrol tag."
+                var episode_data = result.episodes[result.active_episode_id];
+                episode = new Episode(episode_data, schema);
+                newtags = episode.tagging[0].makeCopy()
+                newtags.infectioncontrol = true;
+                episode.tagging[0].save(newtags).then(
+                    alert('savedit- ta!')
+                );
+            }else{
+                // Create new episode
+            }
+
         }
-
     }
 )
