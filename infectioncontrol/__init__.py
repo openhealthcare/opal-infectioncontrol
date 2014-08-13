@@ -7,8 +7,9 @@ from infectioncontrol import urls
 
 class InfectionControlPlugin(OpalPlugin):
     urls = urls.urlpatterns
-    javascript_namespace = 'opal.ic'
-    javascripts = [
+    javascripts = {
+        'opal.ic': [
             'js/infectioncontrol.js',
             'js/controllers/report.js',
             ]
+    }
